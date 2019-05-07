@@ -1,50 +1,47 @@
 require './spec/spec_helper'
 
 RSpec.describe MessageData do
-  describe '#ammount' do
-    context 'number persent in message' do
-      it 'parse amount from it' do
-        message_data = described_class.new('/new 123.45')
-
-        expect(message_data.amount).to eq(123.45)
-      end
-    end
-
-    context 'several numbers present' do
-      it 'parses first value' do
-        message_data = described_class.new('/new 123.45 321.12 1')
-
-        expect(message_data.amount).to eq(123.45)
-      end
-    end
-  end
-
   describe '#command' do
-    it 'get command value from beggining of message' do
-      message_data = described_class.new('/new 123.45 321.12 1')
+    it 'gets command from begining of line' do
+      result = described_class.new('/new foo 123.29')
 
-      expect(message_data.command).to eq(:new)
+      expect(result.command).to eq(:new)
     end
   end
+  describe '#amount' do
+    context 'only one number present' do
+      it 'get amount from it' do
+        result = described_class.new('/new 123.29')
 
-  describe 'date' do
-    context 'date not present in message' do
-      it 'take today date' do
-        message_data = described_class.new('/new 123.45 321.12 1')
+        expect(result.amount).to eq(123.29)
+      end
+    end
 
-        expect(message_data.date).to eq(Date.today)
+    context 'more them one number present' do
+      it 'it count only first number' do
+        result = described_class.new('/new hey 123.29 321.1')
+
+        expect(result.amount).to eq(123.29)
       end
     end
   end
 
-  describe 'data' do
-    it 'returns all message data' do
-      message_data = described_class.new('/new 123.45 321.12 1')
+  describe '#date' do
+    it 'returns current date' do
+      result = described_class.new('/new 123.29')
 
-      expect(message_data.data).to include(
+      expect(result.date).to eq(Date.today)
+    end
+  end
+
+  describe '#data' do
+    it 'returns all data' do
+      result = described_class.new('/new 123.29')
+
+      expect(result.data).to include(
         command: :new,
-        amount: 123.45,
-        date: Date.today
+        amount: 123.29,
+        date: Date.today,
       )
     end
   end
