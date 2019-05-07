@@ -11,27 +11,11 @@ module Messages
     end
 
     def respond
-      on(/^\/new (.+)/) do |arg|
-        EventBuilder.new(arg).build
-      end
+      message_data = MessageData.new(message.text)
+      EventBuilder.new(message_data).build
     end
 
     private
-
-    def on regex, &block
-      regex =~ message.text
-
-      return unless $~
-
-      case block.arity
-      when 0
-        yield
-      when 1
-        yield $1
-      when 2
-        yield $1, $2
-      end
-    end
 
     def answer_with_message(text)
       Sender.new(bot: bot, chat: message.chat, text: text).send
