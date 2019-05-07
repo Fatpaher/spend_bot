@@ -1,9 +1,9 @@
 # Dir['./models/*.rb'].each {|file| require file }
-require './app/message/send'
+require './app/messagess/send'
 require './app/models/application_record'
 require './app/models/user'
 
-module Message
+module Messages
   class Respond
     attr_reader :message, :bot, :user
 

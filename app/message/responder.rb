@@ -1,5 +1,5 @@
 # Dir['./models/*.rb'].each {|file| require file }
-require './app/message/sender'
+require './app/messages/sender'
 require './app/models/application_record'
 require './app/models/user'
 
