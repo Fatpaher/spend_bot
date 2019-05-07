@@ -1,10 +1,10 @@
 # Dir['./models/*.rb'].each {|file| require file }
-require './app/message/send'
+require './app/message/sender'
 require './app/models/application_record'
 require './app/models/user'
 
-module Message
-  class Respond
+module Messages
+  class Responder
     attr_reader :message, :bot, :user
 
     def initialize(options)
@@ -37,7 +37,7 @@ module Message
     end
 
     def answer_with_message(text)
-      Send.new(bot: bot, chat: message.chat, text: text).send
+      Sender.new(bot: bot, chat: message.chat, text: text).send
     end
   end
 end

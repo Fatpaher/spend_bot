@@ -1,13 +1,9 @@
 require './app/reply_markup_formatter'
 require './config/app_config'
 
-module Message
-  class Send
-    attr_reader :bot
-    attr_reader :text
-    attr_reader :chat
-    attr_reader :answers
-    attr_reader :logger
+module Messages
+  class Sender
+    attr_reader :bot, :text, :chat, :answers, :logger
 
     def initialize(options)
       @bot = options[:bot]

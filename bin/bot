@@ -2,7 +2,7 @@
 
 require 'telegram/bot'
 
-require './app/message/respond'
+require './app/message/responder'
 require './config/app_config'
 
 config = AppConfig.new
@@ -18,6 +18,6 @@ Telegram::Bot::Client.run(token) do |bot|
     options = {bot: bot, message: message}
 
     logger.debug "@#{message.from.username}: #{message.text}"
-    Message::Respond.new(options).respond
+    Messages::Responder.new(options).respond
   end
 end
