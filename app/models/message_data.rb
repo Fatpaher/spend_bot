@@ -35,7 +35,6 @@ class MessageData
     end
   end
 
-
   def numeric?(value)
     Float(value) rescue false
   end
