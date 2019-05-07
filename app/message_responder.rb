@@ -21,8 +21,8 @@ class MessageResponder
       answer_with_farewell_message
     end
 
-    on(/^\/command (.+)/) do |arg, n|
-      answer_with_message("you send me #{arg} and #{n}")
+    on(/^\/command (.+)/) do |arg|
+      answer_with_message("you send me #{arg}")
     end
   end
 
