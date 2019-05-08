@@ -1,8 +1,9 @@
 class MessageData
-  attr_reader :message
+  attr_reader :message, :user
 
-  def initialize(message)
+  def initialize(message, user)
     @message = message
+    @user = user
   end
 
   def amount
@@ -22,6 +23,7 @@ class MessageData
       command: command,
       amount: amount,
       date: date,
+      user: user,
     }
   end
 
