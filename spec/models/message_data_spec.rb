@@ -8,6 +8,15 @@ RSpec.describe MessageData do
 
       expect(result.command).to eq(:new)
     end
+
+    context 'command is blank' do
+      it 'set command as :new' do
+        user = build_stubbed :user
+        result = described_class.new('foo 123.29', user)
+
+        expect(result.command).to eq(:new)
+      end
+    end
   end
 
   describe '#amount' do
