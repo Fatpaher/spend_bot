@@ -25,6 +25,7 @@ RSpec.describe Messages::Responder do
           user_id: user.id,
           amount: 123,
           date: be_within(1.minute).of(Date.today.to_time(:utc)),
+          category: '#other',
         )
       end
 
@@ -52,6 +53,31 @@ RSpec.describe Messages::Responder do
 
           expected_text = 'Hey, you probably forgot to add ammount to your message'
           expect(sender).to have_received(:send).with(expected_text)
+        end
+      end
+
+      context 'category options' do
+        it 'set category from tag ' do
+          user = build_stubbed :user
+          message = FakeTelegramMessage.new(
+            from: user,
+            text: '/new 123 #foo'
+          )
+          bot = double
+
+          options = {
+            bot: bot,
+            message: message,
+            user: user,
+          }
+
+          expect do
+            described_class.new(options).respond
+          end.to change(Event, :count).by(1)
+
+          expect(Event.last).to have_attributes(
+            category: '#foo'
+          )
         end
       end
     end

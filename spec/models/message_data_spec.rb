@@ -59,6 +59,35 @@ RSpec.describe MessageData do
     end
   end
 
+  describe '#category' do
+    context 'tag word present' do
+      it 'parse category from tag word' do
+        user = build_stubbed :user
+        result = described_class.new('/new 123.29 #foo', user)
+
+        expect(result.category).to eq(:foo)
+      end
+    end
+
+    context 'several tag words' do
+      it 'parse first value' do
+        user = build_stubbed :user
+        result = described_class.new('/new 123.29 #foo #bar', user)
+
+        expect(result.category).to eq(:foo)
+      end
+    end
+
+    context 'no tag word' do
+      it 'set category other' do
+        user = build_stubbed :user
+        result = described_class.new('/new 123.29', user)
+
+        expect(result.category).to eq(:other)
+      end
+    end
+  end
+
   describe '#data' do
     it 'returns all data' do
       user = build_stubbed :user

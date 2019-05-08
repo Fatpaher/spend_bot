@@ -23,6 +23,10 @@ class MessageData
     message[(/^\/.\w+/)].delete('/').to_sym
   end
 
+  def category
+    message[(/#.\w+/)]&.delete('#')&.to_sym || :other
+  end
+
   def data
     {
       command: command,
