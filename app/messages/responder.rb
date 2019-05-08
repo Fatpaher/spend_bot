@@ -11,7 +11,7 @@ module Messages
     end
 
     def respond
-      message_data = MessageData.new(message.text)
+      message_data = MessageData.new(message.text, user)
       EventBuilder.new(message_data).build
     end
 
