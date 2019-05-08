@@ -1,0 +1,2 @@
+class BlankAmountError < StandardError
+end

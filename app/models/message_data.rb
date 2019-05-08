@@ -1,3 +1,4 @@
+require './lib/errors/blank_ammount_error'
 class MessageData
   attr_reader :message, :user
 
@@ -7,7 +8,11 @@ class MessageData
   end
 
   def amount
-    split_message.detect { |message_part| message_part.is_a?(Numeric) }
+    amount = split_message.detect { |message_part| message_part.is_a?(Numeric) }
+
+    raise BlankAmountError unless amount
+
+    amount
   end
 
   def date

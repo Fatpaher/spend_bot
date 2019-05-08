@@ -13,6 +13,8 @@ module Messages
     def respond
       message_data = MessageData.new(message.text, user)
       EventBuilder.new(message_data).build
+    rescue BlankAmountError
+      answer_with_message('Hey you forgot to add ammount')
     end
 
     private
