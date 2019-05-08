@@ -3,5 +3,6 @@ class FakeTelegramMessage
 
   def initialize(options={})
     @from = options[:from]
+    @text = options[:text]
   end
 end

@@ -7,7 +7,7 @@ module Messages
     def initialize(options)
       @bot = options[:bot]
       @message = options[:message]
-      @user = User.find_or_create_by(uid: message.from.id)
+      @user = options[:user] || User.find_or_create_by(uid: message.from.id)
     end
 
     def respond

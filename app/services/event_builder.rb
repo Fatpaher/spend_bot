@@ -1,7 +1,15 @@
 class EventBuilder
- def initialize(message_data)
- end
+  attr_reader :message_data
 
- def build
- end
+  def initialize(message_data)
+    @message_data = message_data
+  end
+
+  def build
+    Event.create!(
+      amount: message_data.amount,
+      date: message_data.date,
+      user_id: message_data.user.id,
+    )
+  end
 end
