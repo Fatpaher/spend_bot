@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/Fatpaher/spend_bot.svg?style=svg)](https://circleci.com/gh/Fatpaher/spend_bot)
+
 ####Running the bot
 
 rubn `bundle install` to install required gems
