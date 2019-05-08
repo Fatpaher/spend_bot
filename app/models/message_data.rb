@@ -28,9 +28,10 @@ class MessageData
   private
 
   def split_message
-    split_message = message.split(/\s+/)
+    return @split_message if defined?(@split_message)
+    @split_message = message.split(/\s+/)
 
-    split_message.map do |message_part|
+    @split_message = @split_message.map do |message_part|
       message_part.to_f if numeric?(message_part)
     end
   end

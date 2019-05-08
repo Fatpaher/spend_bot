@@ -1,5 +1,5 @@
 class EventBuilder
- def initialize(arguments)
+ def initialize(message_data)
  end
 
  def build
