@@ -9,6 +9,7 @@ RSpec.describe MessageData do
       expect(result.command).to eq(:new)
     end
   end
+
   describe '#amount' do
     context 'only one number present' do
       it 'get amount from it' do
@@ -25,6 +26,17 @@ RSpec.describe MessageData do
         result = described_class.new('/new hey 123.29 321.1', user)
 
         expect(result.amount).to eq(123.29)
+      end
+    end
+
+    context 'no numeric present' do
+      it 'raise blank_ammount_error' do
+        user = build_stubbed :user
+        result = described_class.new('/new foo', user)
+
+        expect do
+         result.amount
+        end.to raise_error(BlankAmountError)
       end
     end
   end

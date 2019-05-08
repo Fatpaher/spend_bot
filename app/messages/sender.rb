@@ -3,17 +3,16 @@ require './config/app_config'
 
 module Messages
   class Sender
-    attr_reader :bot, :text, :chat, :answers, :logger
+    attr_reader :bot, :chat, :answers, :logger
 
     def initialize(options)
       @bot = options[:bot]
-      @text = options[:text]
       @chat = options[:chat]
       @answers = options[:answers]
       @logger = AppConfig.new.get_logger
     end
 
-    def send
+    def send(text)
       if reply_markup
         bot.api.send_message(
           chat_id: chat.id,

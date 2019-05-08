@@ -10,7 +10,7 @@ class MessageData
   def amount
     amount = split_message.detect { |message_part| message_part.is_a?(Numeric) }
 
-    raise BlankAmountError unless amount
+    raise BlankAmountError if amount.blank? && command == :new
 
     amount
   end
