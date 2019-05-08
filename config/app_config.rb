@@ -2,13 +2,18 @@ require 'logger'
 require './config/database_connection'
 
 class AppConfig
+  def self.env
+    ENV['RACK_ENV'] ||= 'development'
+  end
+
   def configure
     setup_i18n
     setup_database
   end
 
   def get_token
-    YAML::load(IO.read('config/secrets.yml'))['telegram_bot_token']
+    secrets = YAML::load(IO.read('config/secrets.yml'))
+    secrets[self.class.env]['telegram_bot_token']
   end
 
   def get_logger

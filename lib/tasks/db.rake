@@ -3,7 +3,8 @@ require 'active_record'
 require 'yaml'
 
 namespace :db do
-  db_config = YAML::load(File.open('config/database.yml'))
+  enviromvent = ENV['RACK_ENV'] || 'development'
+  db_config = YAML::load(File.open('config/database.yml'))[enviromvent]
   db_config_admin = db_config.merge({'database' => 'postgres', 'schema_search_path' => 'public'})
 
   desc "Create the database"
