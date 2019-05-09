@@ -13,7 +13,11 @@ module Messages
 
     def respond
       message_data = MessageData.new(message.text, user)
-      EventBuilder.new(message_data).build
+      case message_data.command
+      when :new
+        Commands::New.new(message_data).call
+        answer_with_message(I18n.t(:record_added , scope: :new))
+      end
     rescue BlankAmountError
       answer_with_message(I18n.t(:blank_ammount, scope: :errors))
     end

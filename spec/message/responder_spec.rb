@@ -10,12 +10,16 @@ RSpec.describe Messages::Responder do
           text: '/new 123'
         )
         bot = double
+        sender = double Messages::Sender
 
         options = {
           bot: bot,
           message: message,
           user: user,
+          sender: sender,
         }
+
+        allow(sender).to receive(:send)
 
         expect do
           described_class.new(options).respond
@@ -27,6 +31,9 @@ RSpec.describe Messages::Responder do
           date: be_within(1.minute).of(Date.today.to_time(:utc)),
           category: '#other',
         )
+
+        expected_text = "Expence added"
+        expect(sender).to have_received(:send).with(expected_text)
       end
 
       context 'without ammount' do
@@ -64,12 +71,16 @@ RSpec.describe Messages::Responder do
             text: '/new 123 #foo'
           )
           bot = double
+          sender = Messages::Sender
 
           options = {
             bot: bot,
             message: message,
             user: user,
+            sender: sender,
           }
+
+          allow(sender).to receive(:send)
 
           expect do
             described_class.new(options).respond

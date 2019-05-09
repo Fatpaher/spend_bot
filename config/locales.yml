@@ -1,5 +1,7 @@
 en:
   greeting_message: "Hi! Telegram is awesome!"
   farewell_message: "Bye! I'll miss you :("
+  new:
+    record_added: 'Expence added'
   errors:
     blank_ammount: 'Hey, you probably forgot to add ammount to your message'
