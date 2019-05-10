@@ -1,6 +1,7 @@
 require 'rspec'
 require 'pry'
 require 'factory_bot'
+require 'database_cleaner'
 
 require './config/app_config'
 require './app/messages/responder.rb'
