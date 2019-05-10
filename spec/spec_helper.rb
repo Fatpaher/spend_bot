@@ -28,10 +28,4 @@ RSpec.configure do |config|
     config.default_formatter = "doc"
   end
   config.order = :random
-
-  config.include FactoryBot::Syntax::Methods
-
-  config.before(:suite) do
-    FactoryBot.find_definitions
-  end
 end
