@@ -57,6 +57,15 @@ RSpec.describe MessageData do
 
       expect(result.date).to eq(Date.today)
     end
+
+    context 'date present' do
+      it 'parse data from message' do
+        user = build_stubbed :user
+        result = described_class.new('/new 123.29 01.05.2019', user)
+
+        expect(result.date).to eq(Date.parse('01.05.2019'))
+      end
+    end
   end
 
   describe '#user' do

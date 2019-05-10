@@ -7,7 +7,7 @@ RSpec.describe Messages::Responder do
         user = build_stubbed :user
         message = FakeTelegramMessage.new(
           from: user,
-          text: '/new 123'
+          text: '/new 123 01.05.2019'
         )
         bot = double
         sender = double Messages::Sender
@@ -28,7 +28,7 @@ RSpec.describe Messages::Responder do
         expect(Event.last).to have_attributes(
           user_id: user.id,
           amount: 123,
-          date: be_within(1.minute).of(Date.today.to_time(:utc)),
+          date: Date.parse('01.05.2019'),
           category: '#other',
         )
 

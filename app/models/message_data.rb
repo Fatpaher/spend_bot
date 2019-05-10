@@ -8,15 +8,18 @@ class MessageData
   end
 
   def amount
-    amount = split_message.detect { |message_part| message_part.is_a?(Numeric) }
+    @amount = split_message.detect { |message_part| message_part.is_a?(Numeric) }
 
-    raise BlankAmountError if amount.blank? && command == :new
+    raise BlankAmountError if @amount.blank? && command == :new
 
-    amount
+    @amount
   end
 
   def date
-    Date.today
+    @date = split_message.detect { |message_part| message_part.is_a?(Date) }
+    return Date.current if @date.blank?
+
+    @date
   end
 
   def command
@@ -45,11 +48,19 @@ class MessageData
     @split_message = message.split(/\s+/)
 
     @split_message = @split_message.map do |message_part|
-      message_part.to_f if numeric?(message_part)
+      to_numeric(message_part) || to_date(message_part) || message_part
     end
   end
 
-  def numeric?(value)
-    Float(value) rescue false
+  def to_numeric(value)
+    Float(value)
+  rescue ArgumentError
+    nil
+  end
+
+  def to_date(value)
+    Date.parse value
+  rescue ArgumentError
+    nil
   end
 end

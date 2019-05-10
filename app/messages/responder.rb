@@ -16,7 +16,7 @@ module Messages
       case message_data.command
       when :new
         Commands::New.new(message_data).call
-        answer_with_message(I18n.t(:record_added , scope: :new))
+        answer_with_message(I18n.t(:record_added, scope: :new))
       end
     rescue BlankAmountError
       answer_with_message(I18n.t(:blank_ammount, scope: :errors))
