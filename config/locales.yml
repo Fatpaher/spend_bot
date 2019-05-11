@@ -5,3 +5,5 @@ en:
     record_added: 'Expence added'
   errors:
     blank_amount: 'Hey, you probably forgot to add ammount to your message'
+  date:
+    short_month_names: [~, Jan, Feb, Mar, Apr, May, Jun, July, Aug, Sep, Oct, Nov, Dec]

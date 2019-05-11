@@ -2,13 +2,13 @@ require './spec/spec_helper'
 
 RSpec.describe Commands::Show do
   describe '#call' do
-   it 'works' do
-     user = build_stubbed(:user)
-     message_data = build(
-       :message_data,
-       user: user,
-       message: '/show #food 10',
-     )
+    it 'returns grouped by category events for current month' do
+      user = build_stubbed(:user)
+      message_data = build(
+        :message_data,
+        user: user,
+        message: '/show #food 10',
+      )
 
       create_list(
         :event,
@@ -18,13 +18,13 @@ RSpec.describe Commands::Show do
         amount: 1,
       )
 
-     result = described_class.new(message_data).call
+      result = described_class.new(message_data).call
 
-     expect(result[:month]).to eq(Date.current.strftime('%B %Y'))
-     expect(result[:grouped_events].length).to eq(1)
-     expect(result[:grouped_events].first.category).to eq('#food')
-     expect(result[:grouped_events].first.sum).to eq(2)
-   end
+      expect(result[:month]).to eq(Date.current.strftime('%B %Y'))
+      expect(result[:grouped_events].length).to eq(1)
+      expect(result[:grouped_events].first.category).to eq('#food')
+      expect(result[:grouped_events].first.sum).to eq(2)
+    end
   end
 
   describe '#respond_template' do
