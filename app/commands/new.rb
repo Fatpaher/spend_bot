@@ -1,13 +1,13 @@
 module Commands
-  class New
-    attr_reader :message_data
-
-    def initialize(message_data)
-      @message_data = message_data
+  class New < Base
+    def call
+      {
+        event: event,
+      }
     end
 
-    def call
-      Event.create!(
+    def event
+      Event.create(
         amount: message_data.amount,
         date: message_data.date,
         user_id: message_data.user.id,

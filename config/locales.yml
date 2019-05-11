@@ -4,4 +4,4 @@ en:
   new:
     record_added: 'Expence added'
   errors:
-    blank_ammount: 'Hey, you probably forgot to add ammount to your message'
+    blank_amount: 'Hey, you probably forgot to add ammount to your message'

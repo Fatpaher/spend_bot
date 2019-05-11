@@ -39,13 +39,11 @@ RSpec.describe MessageData do
     end
 
     context 'no numeric present' do
-      it 'raise blank_ammount_error' do
+      it 'return blank_amount command' do
         user = build_stubbed :user
         result = described_class.new('/new foo', user)
 
-        expect do
-         result.amount
-        end.to raise_error(BlankAmountError)
+        expect(result.command).to eq(:blank_amount)
       end
     end
   end

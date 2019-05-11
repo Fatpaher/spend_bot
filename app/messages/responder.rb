@@ -2,6 +2,12 @@ Dir['./app/**/*.rb'].each {|file| require file }
 
 module Messages
   class Responder
+    VALID_COMMANDS = [
+      :new,
+      :show,
+      :blank_amount,
+    ]
+
     attr_reader :message, :bot, :user, :sender
 
     def initialize(options)
@@ -13,16 +19,27 @@ module Messages
 
     def respond
       message_data = MessageData.new(message.text, user)
-      case message_data.command
-      when :new
-        Commands::New.new(message_data).call
-        answer_with_message(I18n.t(:record_added, scope: :new))
+
+      if VALID_COMMANDS.include?(message_data.command)
+        command = command(message_data.command).new(message_data)
+        command_result = command.call
+
+        respond_message = respond_template(command.respond_template).
+          new(command_result)
+
+        answer_with_message(respond_message.to_text)
       end
-    rescue BlankAmountError
-      answer_with_message(I18n.t(:blank_ammount, scope: :errors))
     end
 
     private
+
+    def command(name)
+      Commands.const_get(name.to_s.classify)
+    end
+
+    def respond_template(name)
+      Templates.const_get(name.to_s.classify)
+    end
 
     def answer_with_message(text)
       sender.send(text)

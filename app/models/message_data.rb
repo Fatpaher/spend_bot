@@ -8,23 +8,25 @@ class MessageData
   end
 
   def amount
-    @amount = split_message.detect { |message_part| message_part.is_a?(Numeric) }
-
-    raise BlankAmountError if @amount.blank? && command == :new
-
-    @amount
+    @amount ||= split_message.detect { |message_part| message_part.is_a?(Numeric) }
   end
 
   def date
+    return @date if defined?(@date)
     @date = split_message.detect { |message_part| message_part.is_a?(Date) }
-    return Date.current if @date.blank?
-
+    @date =  Date.current if @date.blank?
     @date
   end
 
   def command
     message =~ /^\/(.\w+)/
-    $1&.to_sym || :new
+    command_from_data = $1&.to_sym || :new
+
+    if amount.blank? && command_from_data == :new
+      return :blank_amount
+    end
+
+    command_from_data
   end
 
   def category
