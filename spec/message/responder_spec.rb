@@ -92,5 +92,50 @@ RSpec.describe Messages::Responder do
         end
       end
     end
+
+    context '/show' do
+      it 'returns stat' do
+        user = build_stubbed :user
+        message = FakeTelegramMessage.new(
+          from: user,
+          text: '/show 123 01.05.2019'
+        )
+        bot = double
+        sender = double Messages::Sender
+
+
+        create_list(
+          :event,
+          2,
+          user: user,
+          category: :food,
+          amount: 2,
+        )
+        create(
+          :event,
+          user: user,
+          category: :drink,
+          amount: 10,
+        )
+
+        options = {
+          bot: bot,
+          message: message,
+          user: user,
+          sender: sender,
+        }
+
+        allow(sender).to receive(:send)
+
+        described_class.new(options).respond
+
+        expected_text = [
+          "Expences for #{Date.today.strftime('%B %Y')}",
+          '#drink 10',
+          '#food 4'
+        ].join("\n")
+        expect(sender).to have_received(:send).with(expected_text)
+      end
+    end
   end
 end
