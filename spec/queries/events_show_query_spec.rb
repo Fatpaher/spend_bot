@@ -66,7 +66,7 @@ RSpec.describe EventsShowQuery do
       result = described_class.new(
         user: user,
         category: category,
-        date: date,
+        date: current_date,
       ).call
 
       expect(result.length).to eq(1)
