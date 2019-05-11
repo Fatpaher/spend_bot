@@ -4,8 +4,8 @@ RSpec.describe Commands::New do
   describe '#call' do
     it 'works' do
       user = build_stubbed(:user)
-      message_data = double(
-        MessageData,
+      message_data = build(
+        :message_data,
         command: :new,
         category: 'food',
         amount: 1.0,
