@@ -30,8 +30,14 @@ class MessageData
   end
 
   def category
+    return @category if defined?(@category)
+
     message =~ /#(.\w+)/
-    $1&.to_sym || :other
+    @category = $1&.to_sym
+
+    @category = :other if @category.blank? && command == :new
+
+    @category
   end
 
   def data

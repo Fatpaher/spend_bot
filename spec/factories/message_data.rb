@@ -5,7 +5,7 @@ FactoryBot.define do
     transient do
       command { :new }
       amount { 1.0 }
-      category { :food }
+      category { nil }
       date { nil  }
       message { "/#{command} #{amount} ##{category} #{date}" }
     end

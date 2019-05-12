@@ -6,6 +6,7 @@ module Messages
       :new,
       :show,
       :blank_amount,
+      :list,
     ]
 
     attr_reader :message, :bot, :user, :sender

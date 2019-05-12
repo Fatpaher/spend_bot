@@ -14,6 +14,15 @@ class Event < ApplicationRecord
     end
   )
 
+  scope(
+    :for_category,
+    lambda do |category|
+      return if category.blank?
+
+      where(category: category)
+    end,
+  )
+
   def category
     "##{super}"
   end
