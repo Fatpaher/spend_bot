@@ -48,7 +48,7 @@ RSpec.describe Queries::EventsList do
 
       result = described_class.new(
         user: user,
-        date: date,
+        date: current_date,
         category: nil,
       ).call
 
