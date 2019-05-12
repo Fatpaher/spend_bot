@@ -1,4 +1,6 @@
 Dir['./app/**/*.rb'].each {|file| require file }
+require 'tilt'
+require 'erb'
 
 module Messages
   class Responder
@@ -25,10 +27,9 @@ module Messages
         command = command(message_data.command).new(message_data)
         command_result = command.call
 
-        respond_message = respond_template(command.respond_template).
-          new(command_result)
+        respond_message = respond_template(command.respond_template, command_result)
 
-        answer_with_message(respond_message.to_text)
+        answer_with_message(respond_message)
       end
     end
 
@@ -38,8 +39,12 @@ module Messages
       Commands.const_get(name.to_s.classify)
     end
 
-    def respond_template(name)
-      Templates.const_get(name.to_s.classify)
+    def respond_template(name, result)
+      template = Tilt::ERBTemplate.new("./app/templates/#{name}.erb")
+      template_object = TemplateObject.new(result)
+      template.render(template_object).
+        gsub(/^\s+/, '').
+        chomp
     end
 
     def answer_with_message(text)

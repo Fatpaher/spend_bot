@@ -1,0 +1,4 @@
+Operations in <%= month %>
+<% events.each do |event| %>
+  <%= pretty_date(event.date) %> <%= event.category %> - <%= event.amount %>
+<% end %>
