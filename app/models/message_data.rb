@@ -19,14 +19,14 @@ class MessageData
   end
 
   def command
+    return @command if defined?(@command)
+
     message =~ /^\/(.\w+)/
-    command_from_data = $1&.to_sym || :new
+    @command = $1&.to_sym || :new
 
-    if amount.blank? && command_from_data == :new
-      return :blank_amount
-    end
+    @command = :blank_amount if amount.blank? && @command == :new
 
-    command_from_data
+    @command
   end
 
   def category
