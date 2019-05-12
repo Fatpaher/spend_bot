@@ -4,7 +4,7 @@ module Templates
 
     def data
       @data = events.map do |event|
-        "#{event.date.strftime('%d.%m.%y')} #{event.category} - #{event.amount}"
+        "#{pretty_date(event.date)} #{event.category} - #{event.amount}"
       end
 
       @data.unshift("Operations in #{month}")
