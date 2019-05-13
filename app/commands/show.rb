@@ -1,3 +1,5 @@
+require './app/commands/base'
+
 module Commands
   class Show < Base
     def call

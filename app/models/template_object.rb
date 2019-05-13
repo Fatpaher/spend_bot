@@ -1,3 +1,5 @@
+require './app/heplers/templates_helper'
+
 class TemplateObject
   include TemplatesHelper
 
