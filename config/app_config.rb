@@ -6,6 +6,10 @@ class AppConfig
     ENV['RACK_ENV'] ||= 'development'
   end
 
+  def self.test_env?
+    env == 'test'
+  end
+
   def configure
     setup_i18n
     setup_database

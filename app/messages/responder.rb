@@ -25,9 +25,12 @@ module Messages
 
       if VALID_COMMANDS.include?(message_data.command)
         command = command(message_data.command).new(message_data)
-        command_result = command.call
+        command_data = command.call
 
-        respond_message = respond_template(command.respond_template, command_result)
+        respond_message = Messages::Template.new(
+          template_file_path(command.respond_template),
+          command_data,
+        ).render
 
         answer_with_message(respond_message)
       end
@@ -39,12 +42,8 @@ module Messages
       Commands.const_get(name.to_s.classify)
     end
 
-    def respond_template(name, result)
-      template = Tilt::ERBTemplate.new("./app/templates/#{name}.erb")
-      template_object = TemplateObject.new(result)
-      template.render(template_object).
-        gsub(/^\s+/, '').
-        chomp
+    def template_file_path(file_name)
+      "./app/templates/#{file_name}.erb"
     end
 
     def answer_with_message(text)
