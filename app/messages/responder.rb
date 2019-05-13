@@ -9,6 +9,7 @@ module Messages
       :show,
       :blank_amount,
       :list,
+      :undo,
     ]
 
     attr_reader :message, :bot, :user, :sender

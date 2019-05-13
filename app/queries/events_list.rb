@@ -15,7 +15,7 @@ module Queries
         ).
         for_month(date).
         for_category(category).
-        order(:date)
+        order(:date, :created_at)
     end
   end
 end
