@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/Fatpaher/spend_bot.svg?style=svg)](https://circleci.com/gh/Fatpaher/spend_bot)
+[![Build Status](https://travis-ci.org/Fatpaher/spend_bot.svg?branch=master)](https://travis-ci.org/Fatpaher/spend_bot)
 
 ####Running the bot
 
