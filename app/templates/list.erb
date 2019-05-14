@@ -1,4 +1,8 @@
-Operations in <%= month %>
-<% events.each do |event| %>
-  <%= pretty_date(event.date) %> <%= event.category %> - <%= event.amount %>
+<% if events.present? %>
+  Operations in <%= month %>
+  <% events.each do |event| %>
+    <%= pretty_date(event.date) %> <%= event.category %> - <%= event.amount %>
+  <% end %>
+<% else %>
+  No operations in <%= month %>
 <% end %>

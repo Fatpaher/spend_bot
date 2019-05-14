@@ -1,6 +1,9 @@
-Expences for <%= month %>
-
-<% grouped_events.each do |event| %>
-  <%= event.category %> <%= event.sum %>
+<% if grouped_events.present? %>
+  Expences for <%= month %>
+  <% grouped_events.each do |event| %>
+    <%= event.category %> <%= event.sum %>
+  <% end %>
+<% else %>
+  No expences in <%= month %>
 <% end %>
 
