@@ -12,7 +12,7 @@ RSpec.describe 'undo template' do
         event: event,
       )
 
-      expected_text = "Operation #{event.date.strftime('%d.%m.%y')} #{event.category} #{event.amount} was removed"
+      expected_text = "Operation #{event.date.strftime('%d.%m.%y')} #{event.category} #{event.amount.to_i} was removed"
       expect(template).to eq(expected_text)
     end
   end

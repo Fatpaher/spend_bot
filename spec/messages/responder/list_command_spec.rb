@@ -21,7 +21,7 @@ RSpec.describe '/list command' do
       :event,
       user: user,
       category: :drink,
-      amount: 10,
+      amount: 10.1,
       date: '10.04.2019',
     )
 
@@ -47,7 +47,7 @@ RSpec.describe '/list command' do
     expected_text = [
       "Operations in April 2019",
       '02.04.19 #food - 2',
-      '10.04.19 #drink - 10',
+      '10.04.19 #drink - 10.10',
       '29.04.19 #wine - 3',
     ].join("\n")
 

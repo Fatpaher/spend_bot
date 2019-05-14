@@ -12,20 +12,20 @@ RSpec.describe EventsShowQuery do
         2,
         user: user,
         category: :food,
-        amount: 1,
+        amount: 1.2,
       )
 
       create(
         :event,
         user: user,
         category: :drink,
-        amount: 3,
+        amount: 3.11,
       )
 
       create(
         :event,
         category: :food,
-        amount: 1,
+        amount: 1.2,
       )
 
       result = described_class.new(
@@ -36,9 +36,9 @@ RSpec.describe EventsShowQuery do
 
       expect(result.length).to eq(2)
       expect(result.first.category).to eq('#drink')
-      expect(result.first.sum).to eq(3)
+      expect(result.first.sum).to eq(3.11)
       expect(result.last.category).to eq('#food')
-      expect(result.last.sum).to eq(2)
+      expect(result.last.sum).to eq(2.4)
     end
 
     it 'return in period of date' do
@@ -58,7 +58,7 @@ RSpec.describe EventsShowQuery do
           :event,
           user: user,
           category: :food,
-          amount: 1,
+          amount: 1.1,
           date: date
         )
       end
@@ -70,7 +70,7 @@ RSpec.describe EventsShowQuery do
       ).call
 
       expect(result.length).to eq(1)
-      expect(result.first.sum).to eq(2)
+      expect(result.first.sum).to eq(2.2)
     end
   end
 end

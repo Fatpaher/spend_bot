@@ -1,7 +1,7 @@
 <% if events.present? %>
   Operations in <%= month %>
   <% events.each do |event| %>
-    <%= pretty_date(event.date) %> <%= event.category %> - <%= event.amount %>
+    <%= pretty_date(event.date) %> <%= event.category %> - <%= pretty_currency(event.amount) %>
   <% end %>
 <% else %>
   No operations in <%= month %>

@@ -14,7 +14,7 @@ class EventsShowQuery
         user: user,
       ).
       for_month(date).
-      select('sum(events.amount) AS sum, events.category').
+      select('sum(events.amount::numeric) AS sum, events.category').
       order(sum: :desc)
   end
 end

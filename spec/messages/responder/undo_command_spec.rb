@@ -15,7 +15,7 @@ RSpec.describe '/list command' do
         :event,
         user: user,
         category: :drink,
-        amount: 10,
+        amount: 10.20,
         date: Date.current,
       )
 
@@ -43,7 +43,7 @@ RSpec.describe '/list command' do
       expected_text = [
         "Operation #{event_to_delete.date.strftime('%d.%m.%y')}",
         event_to_delete.category,
-        "#{event_to_delete.amount} was removed",
+        "10.20 was removed",
       ].join(' ')
 
       expect(sender).to have_received(:send).with(expected_text)
