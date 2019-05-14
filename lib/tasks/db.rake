@@ -1,11 +1,17 @@
 require 'pg'
 require 'active_record'
-require 'yaml'
+require './config/app_config'
+require './config/database_connection'
 
 namespace :db do
-  enviromvent = ENV['RACK_ENV'] || 'development'
-  db_config = YAML::load(File.open('config/database.yml'))[enviromvent]
-  db_config_admin = db_config.merge({'database' => 'postgres', 'schema_search_path' => 'public'})
+  db_config = DatabaseConnector.configuration
+  db_config_admin = db_config
+  if AppConfig.env != 'production'
+    db_config.merge(
+      'database' => 'postgres',
+      'schema_search_path' => 'public',
+    )
+  end
 
   desc "Create the database"
   task :create do

@@ -1,3 +1,5 @@
+require './app/models/application_record'
+
 class Event < ApplicationRecord
   belongs_to :user
 

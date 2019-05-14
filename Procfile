@@ -1,1 +1,1 @@
-bit: bin/bot
+bot: bundle exec bin/bot

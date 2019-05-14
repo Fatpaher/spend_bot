@@ -10,12 +10,19 @@ class AppConfig
     env == 'test'
   end
 
+  def self.production_env?
+    env == 'production'
+  end
+
   def configure
     setup_i18n
     setup_database
   end
 
   def get_token
+    if self.class.production_env?
+      return ENV['TELEGRAM_BOT_TOKEN']
+    end
     secrets = YAML::load(IO.read('config/secrets.yml'))
     secrets[self.class.env]['telegram_bot_token']
   end

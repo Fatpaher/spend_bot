@@ -9,6 +9,12 @@ class DatabaseConnector
       ActiveRecord::Base.establish_connection(configuration)
     end
 
+    def configuration
+      return ENV['DATABASE_URL'] if AppConfig.production_env?
+
+      YAML.safe_load(IO.read(database_config_path))[AppConfig.env]
+    end
+
     private
 
     def active_record_logger_path
@@ -17,10 +23,6 @@ class DatabaseConnector
 
     def database_config_path
       'config/database.yml'
-    end
-
-    def configuration
-      YAML::load(IO.read(database_config_path))[AppConfig.env]
     end
   end
 end
