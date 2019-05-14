@@ -1,1 +1,5 @@
-Operation <%= pretty_date(event.date) %> <%= event.category %> <%= event.amount %> was removed
+<% if event %>
+  Operation <%= pretty_date(event.date) %> <%= event.category %> <%= event.amount %> was removed
+<% else %>
+  No events to remove
+<% end %>

@@ -16,7 +16,7 @@ module Commands
           category: message_data.category,
         ).
         call.
-        last.
+        last&.
         destroy
     end
   end
