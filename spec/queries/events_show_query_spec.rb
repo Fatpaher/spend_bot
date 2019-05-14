@@ -19,7 +19,7 @@ RSpec.describe EventsShowQuery do
         :event,
         user: user,
         category: :drink,
-        amount: 1,
+        amount: 3,
       )
 
       create(
@@ -36,7 +36,7 @@ RSpec.describe EventsShowQuery do
 
       expect(result.length).to eq(2)
       expect(result.first.category).to eq('#drink')
-      expect(result.first.sum).to eq(1)
+      expect(result.first.sum).to eq(3)
       expect(result.last.category).to eq('#food')
       expect(result.last.sum).to eq(2)
     end
