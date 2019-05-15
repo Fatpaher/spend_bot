@@ -70,7 +70,25 @@ RSpec.describe MessageData do
         user = build_stubbed :user
         result = described_class.new('/new 123.29 Apr', user)
 
-        expect(result.date).to eq(Date.parse('01.04.2019'))
+        expect(result.date).to eq(Date.parse("01.04.2019"))
+      end
+    end
+
+    context 'dd.mm.yy format' do
+      it 'parse current year month date' do
+        user = build_stubbed :user
+        result = described_class.new('/new   123.29   02.04.19', user)
+
+        expect(result.date).to eq(Date.parse('02.04.2019'))
+      end
+    end
+
+    context 'dd.mm.yy format' do
+      it 'parse current year month date' do
+        user = build_stubbed :user
+        result = described_class.new('/new 123.29 April 18', user)
+
+        expect(result.date).to eq(Date.parse('01.04.2018'))
       end
     end
   end

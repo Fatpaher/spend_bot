@@ -8,6 +8,7 @@ RSpec.describe 'list template' do
         2,
         category: :food,
         amount: 1,
+        date: '13.05.2019',
       )
 
       template = render_template(
