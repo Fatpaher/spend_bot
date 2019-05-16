@@ -3,9 +3,16 @@ require './spec/spec_helper'
 RSpec.describe '/new command' do
   it 'creates new event' do
     user = build_stubbed :user
+    event = build(
+      :event,
+      date: '01.05.2019',
+      category: :food,
+      amount: 100.11,
+    )
+
     message = FakeTelegramMessage.new(
       from: user,
-      text: '/new 123 01.05.2019'
+      text: "/new #{event.amount} #{event.category} #{event.date.strftime('%d.%m.%y')}"
     )
     bot = double
     sender = double Messages::Sender
@@ -25,12 +32,17 @@ RSpec.describe '/new command' do
 
     expect(Event.last).to have_attributes(
       user_id: user.id,
-      amount: 123,
-      date: Date.parse('01.05.2019'),
-      category: '#other',
+      amount: event.amount,
+      date: event.date,
+      category: event.category,
     )
 
-    expected_text = "Expence added"
+    expected_text = [
+      "Operation #{event.date.strftime('%d.%m.%y')}",
+      event.category,
+      event.amount,
+      'was added',
+    ].join(' ')
     expect(sender).to have_received(:send).with(expected_text)
   end
 
