@@ -3,6 +3,7 @@
   <% grouped_events.each do |event| %>
     <%= event.category %> <%= pretty_currency(event.sum) %>
   <% end %>
+  Total: <%= pretty_currency(total) %>
 <% else %>
   No expences in <%= month %>
 <% end %>

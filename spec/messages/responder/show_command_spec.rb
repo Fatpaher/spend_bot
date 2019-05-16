@@ -40,6 +40,7 @@ RSpec.describe '/show command' do
         "Expences for #{Date.current.strftime('%B %Y')}",
         '#drink 10',
         '#food 4',
+        'Total: 14',
       ].join("\n")
       expect(sender).to have_received(:send).with(expected_text)
     end
@@ -80,6 +81,7 @@ RSpec.describe '/show command' do
       expected_text = [
         "Expences for April #{year}",
         '#drink 10',
+        'Total: 10',
       ].join("\n")
       expect(sender).to have_received(:send).with(expected_text)
     end

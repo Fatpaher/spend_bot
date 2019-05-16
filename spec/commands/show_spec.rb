@@ -18,10 +18,18 @@ RSpec.describe Commands::Show do
         amount: 1,
       )
 
+      create(
+        :event,
+        user: user,
+        category: :drink,
+        amount: 1,
+      )
+
       result = described_class.new(message_data).call
 
       expect(result[:month]).to eq(Date.current.strftime('%B %Y'))
-      expect(result[:grouped_events].length).to eq(1)
+      expect(result[:total]).to eq(3)
+      expect(result[:grouped_events].length).to eq(2)
       expect(result[:grouped_events].first.category).to eq('#food')
       expect(result[:grouped_events].first.sum).to eq(2)
     end

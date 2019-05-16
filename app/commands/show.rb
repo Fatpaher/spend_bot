@@ -6,6 +6,7 @@ module Commands
       {
         grouped_events: grouped_events,
         month: month,
+        total: total,
       }
     end
 
@@ -14,13 +15,19 @@ module Commands
     end
 
     def grouped_events
-      EventsShowQuery.
+      grouped_events ||= EventsShowQuery.
         new(
           date: message_data.date,
           user: message_data.user,
           category: message_data.category,
         ).
         call
+    end
+
+    def total
+      grouped_events.
+        map(&:sum).
+        sum
     end
   end
 end
