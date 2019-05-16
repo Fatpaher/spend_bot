@@ -16,6 +16,10 @@ class MessageData
     @date ||= DateParser.new(message).parse
   end
 
+  def options
+    @options ||= OptionsParser.new(message).parse
+  end
+
   def command
     return @command if defined?(@command)
 

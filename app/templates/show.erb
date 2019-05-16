@@ -1,7 +1,7 @@
 <% if grouped_events.present? %>
   Expences for <%= month %>
   <% grouped_events.each do |event| %>
-    <%= event.category %> <%= pretty_currency(event.sum) %>
+    <%= event.category %> <%= pretty_currency(event.sum) %><%= event.percent(total, show_percent?) %>
   <% end %>
   Total: <%= pretty_currency(total) %>
 <% else %>

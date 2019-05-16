@@ -6,6 +6,7 @@ RSpec.describe 'list template' do
       event = double(
         category: '#food',
         sum: 1,
+        percent: nil,
       )
 
       template = render_template(
@@ -13,12 +14,13 @@ RSpec.describe 'list template' do
           grouped_events: [event],
           month: 'April 2019',
           total: 1,
+          show_percent?: false,
       )
 
       expected_text = [
       "Expences for April 2019",
       '#food 1',
-      'Total: 1'
+      'Total: 1',
       ].join("\n")
       expect(template).to eq(expected_text)
     end
