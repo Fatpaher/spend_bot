@@ -9,7 +9,7 @@ class MessageData
   end
 
   def amount
-    @amount ||= split_message.detect { |message_part| message_part.is_a?(Numeric) }
+    @amount ||= AmountParser.new(message).parse
   end
 
   def date
@@ -45,22 +45,5 @@ class MessageData
       date: date,
       user: user,
     }
-  end
-
-  private
-
-  def split_message
-    return @split_message if defined?(@split_message)
-    @split_message = message.split(/\s+/)
-
-    @split_message = @split_message.map do |message_part|
-      to_numeric(message_part) || message_part
-    end
-  end
-
-  def to_numeric(value)
-    Float(value)
-  rescue ArgumentError
-    nil
   end
 end
