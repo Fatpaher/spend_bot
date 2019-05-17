@@ -33,7 +33,7 @@ namespace :db do
     steps = (args[:steps] || 1).to_i
 
     ActiveRecord::Base.establish_connection(db_config)
-    ActiveRecord::Migrator.rollback(['db/migrate'], steps)
+    ActiveRecord::MigrationContext.new('db/migrate').rollback(steps)
 
     Rake::Task['db:schema'].invoke
   end
